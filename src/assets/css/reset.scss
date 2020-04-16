@@ -1,0 +1,13 @@
+@import './common.scss';
+
+.el-menu-item:hover {
+    background: #4ecdc4 !important;
+    color: #fff !important;
+}
+.el-submenu__title:hover {
+    background: #4ecdc4 !important;
+    color: #fff !important;
+}
+.el-submenu__title:hover i {
+    color: #fff !important;
+}
