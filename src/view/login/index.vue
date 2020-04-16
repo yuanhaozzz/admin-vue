@@ -17,43 +17,56 @@
                 </div>
                 <!-- 账号密码 -->
                 <div class="login-content-box-bottom">
-                    <p class="login-content-box-bottom-switch flex-end"
-                       @click="swtichLogin">
+                    <p
+                        class="login-content-box-bottom-switch flex-end"
+                        @click="swtichLogin"
+                    >
                         {{ isLogin ? '注册' : '登录' }}
                     </p>
-                    <el-form :model="ruleForm"
-                             status-icon
-                             :rules="rules"
-                             ref="ruleForm"
-                             label-width="60px"
-                             class="demo-ruleForm">
+                    <el-form
+                        :model="ruleForm"
+                        status-icon
+                        :rules="rules"
+                        ref="ruleForm"
+                        label-width="60px"
+                        class="demo-ruleForm"
+                    >
                         <!-- 用户名 -->
-                        <el-form-item label="用户名"
-                                      prop="username"
-                                      v-if="!isLogin">
-                            <el-input type="text"
-                                      v-model="ruleForm.username"
-                                      placeholder="Username.."></el-input>
+                        <el-form-item
+                            label="用户名"
+                            prop="username"
+                            v-if="!isLogin"
+                        >
+                            <el-input
+                                type="text"
+                                v-model="ruleForm.username"
+                                placeholder="Username.."
+                            ></el-input>
                         </el-form-item>
                         <!-- 账号 -->
-                        <el-form-item label="账号"
-                                      prop="accountNumber">
-                            <el-input type="text"
-                                      v-model="ruleForm.accountNumber"
-                                      placeholder="Accont Number.."></el-input>
+                        <el-form-item label="账号" prop="accountNumber">
+                            <el-input
+                                type="text"
+                                v-model="ruleForm.accountNumber"
+                                placeholder="Accont Number.."
+                            ></el-input>
                         </el-form-item>
                         <!-- 密码 -->
-                        <el-form-item label="密码"
-                                      prop="password">
-                            <el-input type="password"
-                                      v-model="ruleForm.password"
-                                      placeholder="Password.."></el-input>
+                        <el-form-item label="密码" prop="password">
+                            <el-input
+                                type="password"
+                                v-model="ruleForm.password"
+                                placeholder="Password.."
+                            ></el-input>
                         </el-form-item>
 
                         <el-form-item>
-                            <el-button type="primary"
-                                       @click="submitForm('ruleForm')"
-                                       style="width: 100%">sign in !</el-button>
+                            <el-button
+                                type="primary"
+                                @click="submitForm('ruleForm')"
+                                style="width: 100%"
+                                >sign in !</el-button
+                            >
                         </el-form-item>
                     </el-form>
                 </div>
@@ -64,7 +77,7 @@
 
 <script>
 import Api from '@/api/index.js';
-import { setSessionStorage } from '@/util/common'
+import { setSessionStorage } from '@/util/common';
 export default {
     data: () => {
         var isVaildAccountNumber = (rule, value, callback) => {
@@ -105,7 +118,7 @@ export default {
         /**
          * 切换界面
          */
-        swtichLogin () {
+        swtichLogin() {
             this.isLogin = !this.isLogin;
             this.ruleForm.accountNumber = '';
             this.ruleForm.password = '';
@@ -114,7 +127,7 @@ export default {
         /**
          * 登录
          */
-        handleLogin (params) {
+        handleLogin(params) {
             this.$http.post('/user/login', params).then(res => {
                 this.entryHome(res);
             });
@@ -123,18 +136,18 @@ export default {
         /**
          * 注册
          */
-        handleRegister (params) {
+        handleRegister(params) {
             this.$http.post('/user/register', params).then(res => {
                 this.entryHome(res);
             });
         },
-        entryHome (res) {
+        entryHome(res) {
             this.$message.success('登录成功');
-            setSessionStorage(`user${res.id}`, res)
-            setSessionStorage('id', res.id)
+            setSessionStorage(`user${res.id}`, res);
+            setSessionStorage('id', res.id);
             this.$router.push('/entry');
         },
-        submitForm (formName) {
+        submitForm(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
                     let { accountNumber, password, username } = this.ruleForm;
@@ -161,7 +174,7 @@ export default {
 <style lang="scss" scoped>
 .login-wrapper {
     height: 100%;
-    background: url(http://demo.cssmoban.com/cssthemes4/azds_login-forms/form-1/assets/img/backgrounds/1.jpg)
+    background: url(http://yuanhao-web.cn:3003/uploads/background-admin-login.jpg)
         no-repeat center;
     .login-content {
         padding: 100px 0 170px 0;

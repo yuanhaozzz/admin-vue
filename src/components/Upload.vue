@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-upload
-            action="http://localhost:3003/server/upload/images"
+            action="http://yuanhao-web.cn:3003/server/upload/images"
             list-type="picture-card"
             :on-preview="handlePictureCardPreview"
             :headers="uploadHeaders"
