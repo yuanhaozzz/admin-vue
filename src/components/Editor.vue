@@ -90,14 +90,6 @@
                 ></div>
             </div>
         </div>
-        <!-- <textarea ref="textarea" v-model="test" spellcheck="false"></textarea> -->
-        <mavon-editor
-            :codeStyle="codeStyle"
-            :ishljs="true"
-            :externalLink="externalLink"
-            v-model="content"
-        />
-        <!-- <div v-html="compiledMarkdown"></div> -->
     </div>
 </template>
 
