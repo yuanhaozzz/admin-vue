@@ -78,28 +78,7 @@ module.exports = {
                 from: path.resolve(__dirname, findToFilePath('../public')),
                 to: findToFilePath('../dist/backstage/public'),
                 ignore: ['.*'],
-            },
-            {
-                from: 'node_modules/mavon-editor/dist/highlightjs',
-                to: path.resolve(
-                    __dirname,
-                    '../dist/backstage/public/editor/highlightjs'
-                ), // 插件将会把文件导出于/dist/highlightjs之下
-            },
-            {
-                from: 'node_modules/mavon-editor/dist/markdown',
-                to: path.resolve(
-                    __dirname,
-                    '../dist/backstage/public/editor/markdown'
-                ), // 插件将会把文件导出于/dist/markdown之下
-            },
-            {
-                from: 'node_modules/mavon-editor/dist/katex', // 插件将会把文件导出
-                to: path.resolve(
-                    __dirname,
-                    '../dist/backstage/public/editor/katex'
-                ),
-            },
+            }
         ]),
     ],
 };

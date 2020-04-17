@@ -176,6 +176,7 @@ export default {
     height: 100%;
     background: url(http://yuanhao-web.cn:3003/uploads/background-admin-login.jpg)
         no-repeat center;
+    background-size: cover;
     .login-content {
         padding: 100px 0 170px 0;
         flex-direction: column;
