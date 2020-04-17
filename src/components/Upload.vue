@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-upload
-            action="http://yuanhao-web.cn:3003/server/upload/images"
+            :action="action"
             list-type="picture-card"
             :on-preview="handlePictureCardPreview"
             :headers="uploadHeaders"
@@ -26,7 +26,10 @@ export default {
             uploadHeaders: {},
             dialogImageUrl: '',
             dialogVisible: false,
-            fileList: []
+            fileList: [],
+            action: process.env.NODE_ENV === 'development'
+                    ? 'http://localhost:3003/server'
+                    : 'http://yuanhao-web.cn/server'
         };
     },
     props: {
