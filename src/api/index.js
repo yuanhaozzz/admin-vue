@@ -20,8 +20,8 @@ class Api {
                     : 'http://yuanhao-web.cn/server',
             timeout: 6000,
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }
+                'Content-Type': 'application/json;charset=utf-8',
+            },
         });
 
         // 请求头拦截器
@@ -72,9 +72,9 @@ class Api {
         return new Promise((resolve, reject) => {
             this.instance
                 .post(url, params, config)
-                .then(res => {
+                .then((res) => {
                     let {
-                        data: { code, msg, data }
+                        data: { code, msg, data },
                     } = res;
                     if (code === 200) {
                         resolve(data);
@@ -87,7 +87,7 @@ class Api {
                         reject(msg);
                     }
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err.message);
                     Message.error(err.message);
                     reject(err);
@@ -104,10 +104,10 @@ class Api {
         return new Promise((resolve, reject) => {
             this.instance
                 .get(url, params, config)
-                .then(res => {
+                .then((res) => {
                     resolve(res);
                 })
-                .catch(err => {
+                .catch((err) => {
                     reject(err);
                 });
         });

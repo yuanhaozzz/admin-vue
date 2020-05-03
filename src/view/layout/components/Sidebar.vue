@@ -1,18 +1,19 @@
 <template>
     <div class="sidebar-wrapper user-select-none">
         <div class="sidebar-userinfo flex-center">
-            <img src="/backstage/public/images/avatar.jpg" />
+            <img :src="avatar" />
             <p>yuanhao</p>
         </div>
         <div>
-
-            <el-menu default-active="2"
-                     class="el-menu-vertical-demo"
-                     @open="handleOpen"
-                     @close="handleClose"
-                     background-color="#2f323a"
-                     text-color="#aeb2b7"
-                     active-text-color="#fff">
+            <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                background-color="#2f323a"
+                text-color="#aeb2b7"
+                active-text-color="#fff"
+            >
                 <router-link to="/entry">
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
@@ -21,7 +22,6 @@
                 </router-link>
 
                 <el-submenu index="1">
-
                     <template slot="title">
                         <i class="el-icon-location"></i>
                         <span>博客</span>
@@ -29,14 +29,12 @@
 
                     <router-link to="/entry/hot">
                         <el-menu-item index="3">
-                            <p slot="title"
-                               class="menu-item">热门文章</p>
+                            <p slot="title" class="menu-item">热门文章</p>
                         </el-menu-item>
                     </router-link>
                     <router-link to="/entry/recommend">
                         <el-menu-item index="4">
-                            <p slot="title"
-                               class="menu-item">推荐文章</p>
+                            <p slot="title" class="menu-item">推荐文章</p>
                         </el-menu-item>
                     </router-link>
                 </el-submenu>
@@ -46,17 +44,19 @@
 </template>
 
 <script>
+import Avatar from '@/assets/images/avatar.jpg';
 export default {
     data: () => {
-        return {};
+        return {
+            avatar: Avatar
+        };
     },
     methods: {
-        handleOpen () {
-            console.log(1)
+        handleOpen() {
+            console.log(1);
         },
-        handleClose () {
+        handleClose() {
             console.log(2);
-
         }
     }
 };

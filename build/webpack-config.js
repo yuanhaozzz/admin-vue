@@ -10,20 +10,22 @@ let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // 清除dist文件
 let { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-let findToFilePath = (pathname) => {
+let findToFilePath = pathname => {
     return path.resolve(__dirname, pathname);
 };
+
+let isDev = process.env.NODE_ENV === 'production';
 
 module.exports = {
     target: 'web',
     entry: {
-        app: ['@babel/polyfill', findToFilePath('../src/entry-client.js')],
+        app: ['@babel/polyfill', findToFilePath('../src/entry-client.js')]
     },
     resolve: {
         alias: {
-            '@': findToFilePath('../src'),
+            '@': findToFilePath('../src')
         },
-        extensions: ['.js', '.vue', '.less'],
+        extensions: ['.js', '.vue', '.less']
     },
     module: {
         rules: [
@@ -32,17 +34,17 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     // hotReload: false // 关闭热重载
-                },
+                }
             },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 include: [findToFilePath('../src')],
-                loader: 'babel-loader',
+                loader: 'babel-loader'
             },
             {
                 test: /\.(sc|c)ss$/,
-                use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+                use: ['vue-style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.(png)|(jpg)|(gif)|(woff)|(svg)|(eot)|(ttf)$/,
@@ -50,12 +52,19 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 10000,
-                        },
-                    },
-                ],
-            },
-        ],
+                            name: () => {
+                                if (!isDev) {
+                                    return '[name].[ext]';
+                                }
+                                return '[name]_[hash:8].[ext]';
+                            },
+                            outputPath: 'images/',
+                            limit: 10000
+                        }
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         // 请确保引入这个插件！
@@ -64,7 +73,7 @@ module.exports = {
         new webpack.ProvidePlugin({}),
         new HtmlWebpackPlugin({
             title: 'vue-ssr',
-            template: findToFilePath('../public/template.html'),
+            template: findToFilePath('../public/template.html')
         }),
         new CleanWebpackPlugin(),
         // new MiniCssExtractPlugin({
@@ -77,8 +86,8 @@ module.exports = {
             {
                 from: path.resolve(__dirname, findToFilePath('../public')),
                 to: findToFilePath('../dist/backstage/public'),
-                ignore: ['.*'],
+                ignore: ['.*']
             }
-        ]),
-    ],
+        ])
+    ]
 };
