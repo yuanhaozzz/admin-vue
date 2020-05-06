@@ -59,6 +59,7 @@
                 <el-button type="primary" @click="submitForm('ruleForm')"
                     >立即创建</el-button
                 >
+                <el-button type="info" @click="handleSave">保存</el-button>
                 <el-button @click="back">返回</el-button>
             </el-form-item>
         </el-form>
@@ -126,22 +127,66 @@ export default {
             },
         };
     },
-    mounted() {},
+    mounted() {
+        
+        let draft = localStorage.getItem('draft')
+        let {title, description, article } = JSON.parse(draft)
+    },
     methods: {
-        handleUpload(e) {
-            let file = e.target.files[0];
-            let params = new FormData();
-            params.append('file', file);
-            params.get('file');
-            let config = {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            };
-            this.$http.post('/upload/images', params, config).then((res) => {
-                console.log(res);
-            });
-            console.log(file);
+        /**
+        * 保存到本地
+        */
+        handleSave() {
+            let draft = localStorage.getItem('draft')
+            if (draft) {
+                this.openMessageBox(draft)
+            } else {
+                this.saveLocal()
+                  this.$message({
+                    message: '已保存，注：只能同时存在一篇文章草稿',
+                    type: 'success'
+                });
+            }
+            
         },
 
+        /**
+        *   二次确认
+        *   @params {Object} draft 
+         */
+        openMessageBox(draft) {
+            let {title, description, article } = JSON.parse(draft)
+
+            this.$confirm('此操作将会覆盖上一次缓存文章，是否替换？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    this.saveLocal()
+                    this.$message({
+                        type: 'success',
+                        message: '保存成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消保存'
+                    });          
+            });
+        },
+
+        /**
+        *   保存到本地
+         */
+        saveLocal() {
+            let {title, description, article} = this
+            let params = {
+                title,
+                description,
+                article
+            }
+            localStorage.setItem('draft', JSON.stringify(params))
+        },
         /**
          * 上传图片
          */
