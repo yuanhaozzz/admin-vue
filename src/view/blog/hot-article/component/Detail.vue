@@ -1,64 +1,70 @@
 <template>
     <div class="detail-wrapper">
-        <el-form
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            label-width="150px"
-            class="demo-ruleForm"
-        >
+        <el-form :model="ruleForm"
+                 :rules="rules"
+                 ref="ruleForm"
+                 label-width="150px"
+                 class="demo-ruleForm">
             <!-- 文章标题 -->
-            <el-form-item label="文章标题" prop="title">
-                <el-input
-                    v-model.trim="ruleForm.title"
-                    maxlength="30"
-                    clearable
-                ></el-input>
+            <el-form-item label="文章标题"
+                          prop="title">
+                <el-input v-model.trim="ruleForm.title"
+                          maxlength="30"
+                          clearable></el-input>
             </el-form-item>
             <!-- 作者  -->
             <el-form-item label="作者">
                 <el-input v-model="ruleForm.author"></el-input>
             </el-form-item>
             <!-- 文章简介  -->
-            <el-form-item label="文章简介" prop="description">
-                <el-input
-                    type="textarea"
-                    :autosize="{ minRows: 2 }"
-                    clearable
-                    placeholder="请输入..."
-                    v-model.trim="ruleForm.description"
-                >
+            <el-form-item label="文章简介"
+                          prop="description">
+                <el-input type="textarea"
+                          :autosize="{ minRows: 2 }"
+                          clearable
+                          placeholder="请输入..."
+                          v-model.trim="ruleForm.description">
                 </el-input>
             </el-form-item>
             <!-- 浏览量  -->
-            <el-form-item label="浏览量" prop="pageViews">
+            <el-form-item label="浏览量"
+                          prop="pageViews">
                 <el-input v-model.trim="ruleForm.pageViews"></el-input>
             </el-form-item>
+            <!-- 分类  -->
+            <el-form-item label="分类"
+                          prop="category">
+                <el-select v-model="category"
+                           placeholder="请选择类别">
+                    <el-option v-for="item in categoryList"
+                               :key="item.value"
+                               :label="item.label"
+                               :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
             <!-- 创作时间 -->
-            <el-form-item label="发布时间" prop="date">
-                <el-date-picker
-                    v-model="ruleForm.date"
-                    type="datetime"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    placeholder="选择日期时间"
-                >
+            <el-form-item label="发布时间"
+                          prop="date">
+                <el-date-picker v-model="ruleForm.date"
+                                type="datetime"
+                                value-format="yyyy-MM-dd HH:mm:ss"
+                                placeholder="选择日期时间">
                 </el-date-picker>
             </el-form-item>
             <!-- 封面 -->
             <el-form-item label="文章封面">
-                <Upload
-                    ref="upload"
-                    @getUploadImages="getUploadImages"
-                ></Upload>
+                <Upload ref="upload"
+                        @getUploadImages="getUploadImages"></Upload>
             </el-form-item>
             <!-- 编辑器 -->
             <el-form-item label="">
                 <Editor ref="editor"></Editor>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')"
-                    >立即创建</el-button
-                >
+                <el-button type="primary"
+                           @click="submitForm('ruleForm')">立即创建</el-button>
                 <el-button @click="back">返回</el-button>
             </el-form-item>
         </el-form>
@@ -70,7 +76,7 @@ import Editor from '@/components/Editor.vue';
 import Upload from '@/components/Upload.vue';
 import { mapState } from 'vuex';
 export default {
-    data() {
+    data () {
         return {
             ruleForm: {
                 title: '',
@@ -80,6 +86,17 @@ export default {
                 description: '',
             },
             article: '',
+            category: 3,
+            categoryList: [
+                {
+                    value: 3,
+                    label: '源码'
+                },
+                {
+                    value: 4,
+                    label: '面试题'
+                },
+            ],
             uploadHeaders: {},
             imageList: [],
             rules: {
@@ -126,9 +143,9 @@ export default {
             },
         };
     },
-    mounted() {},
+    mounted () { },
     methods: {
-        handleUpload(e) {
+        handleUpload (e) {
             let file = e.target.files[0];
             let params = new FormData();
             params.append('file', file);
@@ -145,27 +162,27 @@ export default {
         /**
          * 上传图片
          */
-        getUploadImages(imageList) {
+        getUploadImages (imageList) {
             this.imageList = imageList;
         },
         /**
          * 获取详情
          * @param {Object} detail 详情数据
          */
-        getDetail(data) {
+        getDetail (data) {
             this.ruleForm.title = data.title;
             this.ruleForm.author = data.author;
             this.ruleForm.date = data.releaseTime;
             this.ruleForm.pageViews = data.pageViews;
             this.ruleForm.description = data.description;
-            
+
             this.$refs.editor.setEditorContent(data.article);
             let imagesList = [{ url: data.imageUrl, path: data.cover }];
             this.$refs.upload.setInitImageList(imagesList);
             this.imageList = imagesList;
         },
 
-        submitForm(formName) {
+        submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if (this.imageList.length === 0) {
@@ -206,7 +223,7 @@ export default {
                 }
             });
         },
-        back(formName) {
+        back (formName) {
             this.$router.back();
         },
     },
