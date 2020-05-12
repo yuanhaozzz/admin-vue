@@ -21,15 +21,15 @@ module.exports = merge(config, {
             {
                 test: /\.js$/,
                 loader: 'eslint-loader',
-                enforce: "pre",
-                include: [path.resolve(__dirname, '../src')], // 指定检查的目录
+                enforce: 'pre',
+                include: [path.resolve(__dirname, '../src')] // 指定检查的目录
             }
         ]
     },
     devServer: {
         contentBase: '../dist',
         historyApiFallback: true,
-        host: "0.0.0.0",
+        host: '0.0.0.0',
         overlay: true,
         open: true,
         port: 3002,
@@ -37,7 +37,5 @@ module.exports = merge(config, {
         hot: true,
         stats: 'errors-only'
     },
-    plugins: [
-        new FriendlyErrorsPlugin()
-    ]
+    plugins: [new FriendlyErrorsPlugin()]
 });
