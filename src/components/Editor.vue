@@ -418,6 +418,7 @@ export default {
             .editor-bottom-common {
                 min-height: 400px;
                 padding: 10px 15px;
+                box-sizing: border-box;
             }
         }
         *::-webkit-scrollbar {
@@ -428,24 +429,20 @@ export default {
 </style>
 <style lang="scss">
 pre {
-    position: relative;
-    line-height: 1.5;
-    font-family: Menlo, Monaco, Consolas, Courier New, monospace;
-    font-size: 14px;
-    code {
-        padding: 18px 15px 12px;
-        overflow-x: auto;
-        color: #333;
-        background: #f8f8f8;
-        display: block;
-        word-break: normal;
-    }
+    padding: 16px;
+    overflow: auto;
+    font-size: 18px;
+    line-height: 1.45;
+    border-radius: 3px;
+    background: #fdf6e3;
+    font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New',
+        'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif !important;
 }
 .hljs-keyword {
     color: #dc322f !important;
 }
 .hljs-string {
-    color: #d14 !important;
+    color: #2aa198 !important;
 }
 .hljs-params {
     color: #657b83 !important;
@@ -454,56 +451,16 @@ pre {
     color: #859900 !important;
 }
 .hljs-title {
-    color: #900 !important;
+    color: #268bd2 !important;
 }
 .hljs-built_in {
-    color: #0086b3 !important;
+    color: #dc322f !important;
 }
 blockquote {
     padding: 0 1em;
     color: #6a737d;
     border-left: 0.25em solid #dfe2e5;
 }
-.hljs-literal {
-    color: teal !important;
-}
 .hljs-comment {
-    color: #998 !important;
-}
-.article-detail-content-el img {
-    max-width: 100%;
-}
-.article-detail-content-el {
-    h1,
-    h2,
-    h3 {
-        padding: 10px 0;
-        font-weight: bold;
-    }
-    h1 {
-        font-size: 22px;
-    }
-    h2 {
-        font-size: 20px;
-    }
-    h3 {
-        font-size: 18px;
-    }
-    h4 {
-        font-size: 16px;
-    }
-    a {
-        color: #0269c8 !important;
-    }
-    p {
-        margin: 5px 0;
-    }
-    ul {
-        list-style: disc;
-        padding-left: 24px;
-        li {
-            list-style: disc;
-        }
-    }
 }
 </style>
