@@ -95,9 +95,7 @@
 
 <script>
 // markdown编辑器
-import { mavonEditor } from 'mavon-editor';
 import marked from 'marked';
-import 'mavon-editor/dist/css/index.css';
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 hljs.registerLanguage('javascript', javascript);
@@ -190,12 +188,14 @@ export default {
          * 功能区
          */
         insertText(type) {
-            console.log(this.textareaEl.selectionStart);
             // 光标位置
             let { selectionStart, selectionEnd } = this.textareaEl;
             let startIndex = selectionStart;
             let endIndex = selectionEnd;
             let value = this.value;
+
+            console.log(selectionStart);
+            console.log(selectionEnd);
 
             this.textareaEl.focus();
             let { prefix, subfix, str } = EDITOR_LEFT[type];
@@ -316,9 +316,6 @@ export default {
                 },
             });
         },
-    },
-    components: {
-        mavonEditor,
     },
 };
 </script>

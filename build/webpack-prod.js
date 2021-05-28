@@ -2,6 +2,8 @@ const path = require('path');
 
 let config = require('./webpack-config');
 const merge = require('webpack-merge');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 let findToFilePath = pathname => {
     return path.resolve(__dirname, pathname);
 };
@@ -20,5 +22,9 @@ module.exports = merge(config, {
         builtAt: false,
         modules: false,
         entrypoints: false
-    }
+    },
+    plugins: [
+        new BundleAnalyzerPlugin(),
+        new CompressionWebpackPlugin()
+    ]
 });

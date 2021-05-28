@@ -14,18 +14,44 @@ let findToFilePath = pathname => {
     return path.resolve(__dirname, pathname);
 };
 
-let isDev = process.env.NODE_ENV === 'production';
+let isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
     target: 'web',
     entry: {
-        app: ['@babel/polyfill', findToFilePath('../src/entry-client.js')]
+        app: [findToFilePath('../src/entry-client.js')]
     },
     resolve: {
         alias: {
             '@': findToFilePath('../src')
         },
         extensions: ['.js', '.vue', '.less']
+    },
+    externals: {
+        'vue': 'Vue',
+        'vuex': 'Vuex',
+        'element-ui': 'ELEMENT',
+        'axios': 'axios',
+        'qs': 'qs'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minChunks: 2,
+            minSize: 3000,
+            name: true,
+            cacheGroups: {
+                vendors: {
+                test: /[\\/]node_modules[\\/]/,
+                priority: -10
+                },
+                default: {
+                minChunks: 2,
+                priority: -20,
+                reuseExistingChunk: true
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -40,11 +66,22 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 include: [findToFilePath('../src')],
-                loader: 'babel-loader'
+                use:['babel-loader?cacheDirectory=true'],
+
             },
             {
                 test: /\.(sc|c)ss$/,
-                use: ['vue-style-loader', 'css-loader', 'sass-loader']
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === 'development',
+                            reloadAll: true
+                        },
+                    },
+                    'css-loader',
+                    'sass-loader'
+                ]
             },
             {
                 test: /\.(png)|(jpg)|(gif)|(woff)|(svg)|(eot)|(ttf)$/,
@@ -53,7 +90,7 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             name: () => {
-                                if (!isDev) {
+                                if (isDev) {
                                     return '[name].[ext]';
                                 }
                                 return '[name]_[hash:8].[ext]';
@@ -76,18 +113,18 @@ module.exports = {
             template: findToFilePath('../public/template.html')
         }),
         new CleanWebpackPlugin(),
-        // new MiniCssExtractPlugin({
-        //     // Options similar to the same options in webpackOptions.output
-        //     // both options are optional
-        //     filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash:8].css',
-        //     chunkFilename: devMode ? 'css/[id].css' : 'css/[id].[contenthash:8].css',
-        // }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: isDev ? 'css/[name].css' : 'css/[name].[contenthash:8].css',
+            chunkFilename: isDev ? 'css/[id].css' : 'css/[id].[contenthash:8].css',
+        }),
         new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, findToFilePath('../public')),
                 to: findToFilePath('../dist/backstage/public'),
                 ignore: ['.*']
             }
-        ])
+        ]),
     ]
 };

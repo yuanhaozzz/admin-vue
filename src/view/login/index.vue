@@ -174,9 +174,7 @@ export default {
 <style lang="scss" scoped>
 .login-wrapper {
     height: 100%;
-    background: url(http://yuanhao-web.cn:3003/uploads/background-admin-login.jpg)
-        no-repeat center;
-    background-size: cover;
+    background-color: rgba(0, 0, 0, .3);    
     .login-content {
         padding: 100px 0 170px 0;
         flex-direction: column;

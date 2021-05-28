@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
-let qs = require('qs');
 
 import { getSessionStorage } from '@/util/common';
 class Api {
