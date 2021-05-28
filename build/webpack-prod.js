@@ -24,7 +24,7 @@ module.exports = merge(config, {
         entrypoints: false
     },
     plugins: [
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         new CompressionWebpackPlugin()
     ]
 });
